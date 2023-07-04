@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +16,8 @@ public class Controller {
 		return messages;
 	}
 	
-	@KafkaListener(groupId = "TwoListeners", topicPartitions = @TopicPartition(topic = "topic", partitions = {"0"}))
+	@KafkaListener(groupId = "TwoListeners", topics = "topic")
+//	topicPartitions = @TopicPartition(topic = "topic", partitions = {"0"})
 	public List<String> getMsgFromTopic(String data) {
 		messages.add(data);
 		return messages;
